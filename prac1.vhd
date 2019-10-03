@@ -39,9 +39,9 @@ begin
     port map(a0, b0, c0, s0, c1);
 
   process begin
-            a0 <= '0', b0 <= '0', c0 <= '0';
+            a0 <= '0'; b0 <= '0'; c0 <= '0';
             wait for 10 ns;
-            a0 <= '0', b0 <= '0', c0 <= '1';
+            a0 <= '0'; b0 <= '0'; c0 <= '1';
             wait;
   end process;
 end;

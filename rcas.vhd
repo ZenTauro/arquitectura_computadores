@@ -13,21 +13,22 @@
 --    You should have received a copy of the GNU General Public License
 --    along with SumadoresPedro.  If not, see <https://www.gnu.org/licenses/>.
 
-entity rca_nbits is
-  generic (n: integer; tp: time);
-  port (a, b: in bit_vector (n - 1 downto 0); cin: in bit;
-        s: out bit_vector (n - 1 downto 0); cout: out bit);
-end;
+entity RCAs is end;
 
-architecture xxx of rca_nbits is
-  signal ci: bit_vector (n downto 0);
+architecture RCA_8x1 of RCAs is
+  signal a,b,s : bit_vector (7 downto 0) := x"00";
+  signal cout, cin : bit := '0';
+
 begin
-  ci(0) <= cin;
+  s1: entity work.rca_nbits
+    generic map (8, 10 ns)
+    port    map (a, b, cin, s, cout);
 
-  gen: for I in 0 to n-1 generate
-    add: entity work.sum_elemental(RTL6)
-      generic  map(tp)
-      port     map(a(I), b(I), ci(I), s(I), ci(I+1));
-  end generate;
-  cout <= ci(n);
-end xxx;
+  process begin
+            a <= x"55"; b <= x"55"; cin <= '1'; -- pruebas tiempos etc
+            wait for 250 ns;                    -- Segun calculos con 210 ns es
+                                                -- suficiente
+            a <= x"00"; b <= x"00"; cin <= '0'; -- clear input signals
+            wait for 250 ns;
+          end process;
+          end;
