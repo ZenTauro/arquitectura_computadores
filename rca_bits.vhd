@@ -13,10 +13,11 @@
 --    You should have received a copy of the GNU General Public License
 --    along with SumadoresPedro.  If not, see <https://www.gnu.org/licenses/>.
 
+-- Sumador que combina n sumadores para poder sumar n bits
 entity rca_nbits is
   generic (n: integer; tp: time);
-  port (a, b: in bit_vector (n - 1 downto 0); cin: in bit;
-        s: out bit_vector (n - 1 downto 0); cout: out bit);
+  port (a, b: in  bit_vector (n - 1 downto 0); cin:  in bit;
+           s: out bit_vector (n - 1 downto 0); cout: out bit);
 end;
 
 architecture xxx of rca_nbits is
